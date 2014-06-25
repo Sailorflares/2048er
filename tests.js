@@ -83,3 +83,15 @@ test( "shift values left 1 time, starting at second spot in second array", funct
 	
 	deepEqual ( result, [[0,0,2,2,],[2,2,0,0]], "See test" );
 });
+
+test( "For each row, add if two equal adjacent values and shift rest of row", function() {
+	var array1 = [2,2,0,0];
+	var array2 = [4,4,4,2];
+	var array3 = [2,0,0,0];
+	var array4 = [2,4,0,0];
+	var array = [array1,array2,array3,array4];
+
+	var result = addAdjacentValuesAndShift(array);
+	
+	deepEqual ( result, [[4,0,0,0],[8,4,2,0],[2,0,0,0],[2,4,0,0]], "See test" );
+});

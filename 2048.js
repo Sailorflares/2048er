@@ -35,7 +35,7 @@ var shiftValuesLeftByGivenNumber = function(array,i,j,count){
   return array;
 }
 
-var moveNonZeroValuesToLeft = function (array){
+var moveNonZeroValuesToLeft = function(array){
   for (i=0; i<array.length; i++){
     for (j=0; j<array.length; j++){
       if (array[i][j]==0){
@@ -55,33 +55,18 @@ var moveNonZeroValuesToLeft = function (array){
   return array;
 }
 
-
-//var funBoard = intializeBoard();
-//printBoard(funBoard);
-
-//var isNonZeroValuesColumn = function(array[i][j]){
-  //This will return true or false, depending on whether there are non-zero values in below column spots, might take an array length and an i value
-//}
-
-/*
-var upKeyFunction = function(array) {
-  for (j=0; j<4; j++){
-    for (i=0; i<4; i++){
-      while (isNonZeroValuesColumn()==true){
-        if (array[i][j]==0){
-          for (k=i; k<4; k++){
-            array[i][j] = array[i+1][j];
-            array[i+1][j] = array[i+2][j];
-            array[i+2][j] = array[i+3][j];
-            array[i+3][j] = 0;
-          
-          for (k=i;k<array.length-1;k++){
-            
-          }
-        }  
+var addAdjacentValuesAndShift = function(array){
+  for (i=0; i<array.length; i++){
+    var j = 0;
+    var addition = 0;
+    while (j<array.length && addition<1){
+      if (array[i][j]==array[i][j+1]){
+        array[i][j]+=array[i][j+1];
+        array = shiftValuesLeftByOneSpace(array,i,j+1);
+        addition++;
       }
+      j++;
     }
-  }  
+  }
+  return array;
 }
-*/
-
