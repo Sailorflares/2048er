@@ -1,13 +1,3 @@
-test( "two numbers placed randomly", function() {
-	sinon.stub( Math, 'random' ).returns(0);
-	var array = [ [],[],[],[] ];
-	array[0][0] = "Blank";
-	
-	setRandomSpotToTwo(array);
-
-	equal( array[0][0], 2, "Value at array[0][0] should be 2" );
-});
-
 test( "board filled with zeros", function() {
 	var array = intializeBoard();
 
@@ -93,5 +83,53 @@ test( "For each row, add if two equal adjacent values and shift rest of row", fu
 
 	var result = addAdjacentValuesAndShift(array);
 	
-	deepEqual ( result, [[4,0,0,0],[8,4,2,0],[2,0,0,0],[2,4,0,0]], "See test" );
+	deepEqual (result,[[4,0,0,0],[8,4,2,0],[2,0,0,0],[2,4,0,0]], "See test" );
+});
+
+test( "Create an array to store locations of empty spaces", function() {
+	var array1 = [2,2,0,0];
+	var array2 = [4,4,4,2];
+	var array3 = [2,0,0,0];
+	var array4 = [2,4,0,0];
+	var array = [array1,array2,array3,array4];
+
+	var result = createArrayToStoreLocationsOfEmptySpaces(array);
+	var expected = [[0,2],[0,3],[2,1],[2,2],[2,3],[3,2],[3,3]];
+
+	deepEqual (result,expected,"See test");
+});
+
+test( "Return array of empty spaces when there are none", function() {
+	var array1 = [2,2,2,2];
+	var array2 = [4,4,4,2];
+	var array3 = [2,4,4,2];
+	var array4 = [2,4,4,2];
+	var array = [array1,array2,array3,array4];
+
+	var result = createArrayToStoreLocationsOfEmptySpaces(array);
+	var expected = [];
+
+	deepEqual (result,expected,"See test");
+});
+
+module( "Math.random returns 1", {
+    setup: function () {
+      sinon.stub(Math,'random').returns(1);
+    },
+
+    teardown: function () {
+      Math.random.restore();
+    }
+});
+
+test( "Place two in random, empty spots", function() {
+	var array1 = [2,2,0,0];
+	var array2 = [4,4,4,2];
+	var array3 = [2,0,0,0];
+	var array4 = [2,4,0,0];
+	var array = [array1,array2,array3,array4];
+
+	var result = placeTwoInEmptySpot(array);
+	
+	deepEqual ( result, [[2,2,0,0],[4,4,4,2],[2,0,0,0],[2,4,0,2]], "See test" );
 });

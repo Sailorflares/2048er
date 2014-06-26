@@ -1,7 +1,7 @@
 var printBoard = function(array) {
   var stringyString = "";
-  for (i=0; i<4; i++){
-    for (j=0; j<4; j++){
+  for (i=0; i<array.length; i++){
+    for (j=0; j<array.length; j++){
       stringyString = stringyString + " " + array[i][j];
     }
     stringyString = stringyString + "\n";
@@ -12,12 +12,6 @@ var printBoard = function(array) {
 var intializeBoard = function() {
   var playerBoard = [ [ 0,0,0,0 ],[ 0,0,0,0 ],[ 0,0,0,0 ],[ 0,0,0,0 ] ];
   return playerBoard;
-}
-
-var setRandomSpotToTwo = function(array) {
-  var i = Math.round(Math.random()*3);
-  var j = Math.round(Math.random()*3);
-  array[i][j] = 2;
 }
 
 var shiftValuesLeftByOneSpace = function(array,i,j) {
@@ -69,4 +63,25 @@ var addAdjacentValuesAndShift = function(array){
     }
   }
   return array;
+}
+
+var createArrayToStoreLocationsOfEmptySpaces = function(array){
+  var storeLocationsArray = [];
+  for (i=0; i<array.length; i++){
+    for (j=0; j<array.length; j++){
+      if (array[i][j]==0){
+        storeLocationsArray.push([i,j]);
+      }
+    }
+  }
+  return storeLocationsArray;
+}
+
+var placeTwoInEmptySpot = function(array){
+    var emptySpacesArray = createArrayToStoreLocationsOfEmptySpaces(array);
+    var k = Math.round(Math.random()*(emptySpacesArray.length-1));
+    var i = emptySpacesArray[k][0];
+    var j = emptySpacesArray[k][1];
+    array[i][j]=2;
+    return array;
 }
