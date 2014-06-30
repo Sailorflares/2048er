@@ -57,16 +57,29 @@ test( "shift values up by one space, starting at index 1 on the second column", 
 	deepEqual ( result, [[0,2,0,2],[0,2,2,2],[2,0,2,0],[2,0,0,0]], "See test" );
 });
 
-test( "move all nonzero values to the left", function() {
+test( "shift values down by one space, starting at index 2 on last column and index 3 on 3rd column", function() {
 	var array1 = [0,2,0,2];
 	var array2 = [0,0,2,2];
 	var array3 = [2,0,2,0];
 	var array4 = [2,0,0,0];
 	var array = [array1,array2,array3,array4];
 
+	var result = shiftValuesDownByOneSpace(array,2,3);
+	result = shiftValuesDownByOneSpace(result,3,2);
+	
+	deepEqual ( result, [[0,2,0,0],[0,0,0,2],[2,0,2,2],[2,0,2,0]], "See test" );
+});
+
+test( "move all nonzero values to the left", function() {
+	var array1 = [0,2,0,2];
+	var array2 = [0,0,2,2];
+	var array3 = [2,0,2,0];
+	var array4 = [2,2,2,2];
+	var array = [array1,array2,array3,array4];
+
 	var result = moveNonZeroValuesToLeft(array);
 	
-	deepEqual ( result, [[2,2,0,0],[2,2,0,0],[2,2,0,0],[2,0,0,0]], "See test" );
+	deepEqual ( result, [[2,2,0,0],[2,2,0,0],[2,2,0,0],[2,2,2,2]], "See test" );
 });
 
 test( "move all nonzero values up", function() {
@@ -93,6 +106,18 @@ test( "move all nonzero values to the right", function() {
 	deepEqual ( result, [[0,0,2,2],[0,0,2,2],[0,0,2,2],[0,0,0,2]], "See test" );
 });
 
+test( "move all nonzero values down", function() {
+	var array1 = [0,2,0,2];
+	var array2 = [0,0,0,2];
+	var array3 = [2,0,2,0];
+	var array4 = [2,4,0,0];
+	var array = [array1,array2,array3,array4];
+
+	var result = moveNonZeroValuesDown(array);
+	
+	deepEqual ( result, [[0,0,0,0],[0,0,0,0],[2,2,0,2],[2,4,2,2]], "See test" );
+});
+
 test( "shift values left 2 times, starting at first spot", function() {
 	var array1 = [0,0,2,2];
 	var array2 = [2,0,2,0];
@@ -101,6 +126,10 @@ test( "shift values left 2 times, starting at first spot", function() {
 	var result = shiftValuesLeftByGivenNumber(array, 0, 0, 2);
 	
 	deepEqual ( result, [[2,2,0,0],[2,0,2,0]], "See test" );
+
+	var result = shiftValuesLeftByGivenNumber(array, 0, 0, 0);
+	
+	deepEqual ( result, [[2,2,0,0],[2,0,2,0]], "See test" );	
 });
 
 test( "shift values right 2 times, first array, index 3. shift values right once, second array, index 2", function() {
@@ -125,6 +154,19 @@ test( "shift values up 2 times, starting at first spot", function() {
 	
 	deepEqual ( result, [[2,2,0,2],[2,0,2,2],[0,0,2,0],[0,0,0,0]], "See test" );
 });
+
+test( "shift values down 2 times, starting at 4th spot in 4th column", function() {
+	var array1 = [0,2,0,2];
+	var array2 = [0,0,2,2];
+	var array3 = [2,0,2,0];
+	var array4 = [2,0,0,0];
+	var array = [array1,array2,array3,array4];
+
+	var result = shiftValuesDownByGivenNumber(array, 3, 3, 2);
+	
+	deepEqual ( result, [[0,2,0,0],[0,0,2,0],[2,0,2,2],[2,0,0,2]], "See test" );
+});
+
 
 test( "shift values left 1 time, starting at second spot", function() {
 	var array1 = [0,0,2,2];
@@ -170,6 +212,17 @@ test( "For each row, add if two equal adjacent values and shift rest of row up",
 	deepEqual (result,[[2,2,8,4],[4,8,0,2],[4,0,0,0],[0,0,0,0]], "See test" );
 });
 
+test( "For each row, add if two equal adjacent values and shift rest of row down", function() {
+	var array4 = [2,2,4,4];
+	var array3 = [4,4,4,2];
+	var array2 = [2,4,0,0];
+	var array1 = [2,0,0,0];
+	var array = [array1,array2,array3,array4];
+
+	var result = addAdjacentValuesAndShiftDown(array);
+	
+	deepEqual (result,[[0,0,0,0],[4,0,0,0],[4,8,0,2],[2,2,8,4]], "See test" );
+});
 
 test( "For each row, add if two equal adjacent values and shift rest of row right", function() {
 	var array1 = [0,0,2,2];

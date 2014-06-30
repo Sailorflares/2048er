@@ -14,6 +14,7 @@ var intializeBoard = function() {
   return playerBoard;
 }
 
+// Note to self. The follow four methods are not designed to work on a column/row that is completely filled with non-zero values
 var shiftValuesLeftByOneSpace = function(array,i,j) {
   for (j; j<3; j++){
     array[i][j] = array[i][j+1];
@@ -31,10 +32,18 @@ var shiftValuesRightByOneSpace = function(array,i,j) {
 }
 
 var shiftValuesUpByOneSpace = function(array,i,j) {
-  for (i; i<3; i++){
+  for (i; i<array.length-1; i++){
     array[i][j] = array[i+1][j];
   }
   array[3][j] = 0;
+  return array;
+}
+
+var shiftValuesDownByOneSpace = function(array,i,j) {
+  for (i; i>0; i--){
+    array[i][j] = array[i-1][j];
+  }
+  array[0][j] = 0;
   return array;
 }
 
@@ -55,6 +64,13 @@ var shiftValuesRightByGivenNumber = function(array,i,j,count){
 var shiftValuesUpByGivenNumber = function(array,i,j,count){
   for (l=0; l<count; l++){
     array = shiftValuesUpByOneSpace(array,i,j);
+  }
+  return array;
+}
+
+var shiftValuesDownByGivenNumber = function(array,i,j,count){
+  for (l=0; l<count; l++){
+    array = shiftValuesDownByOneSpace(array,i,j);
   }
   return array;
 }
@@ -104,11 +120,27 @@ var moveNonZeroValuesToRight = function(array){
     for (j=array.length-1; j>-1;j--){
       var count = 0;
       var k=j;
-      while (array[i][k]==0 && k>-1){
+      while (k>-1 && array[i][k]==0){
         count++;
         k--;
       }
       array = shiftValuesRightByGivenNumber(array,i,j,count);
+    }
+  } 
+  return array;
+}
+
+var moveNonZeroValuesDown = function(array){
+  for (j=0; j<array.length; j++){
+    for (i=array.length-1; i>-1; i--){
+      var count = 0;
+      var k=i;
+      console.log(array[k]);
+      while (k>-1 && array[k][j]==0){
+        count++;
+        k--;
+      }
+      array = shiftValuesDownByGivenNumber(array,i,j,count);
     }
   } 
   return array;
@@ -157,6 +189,22 @@ var addAdjacentValuesAndShiftRight = function(array){
         addition++;
       }
       j--;
+    }
+  }
+  return array;
+}
+
+var addAdjacentValuesAndShiftDown = function(array){
+  for (j=0; j<array.length; j++){
+    var i = array.length-1;
+    var addition = 0;
+    while (addition<1 && i>-1){
+      if (array[i][j]==array[i-1][j]){
+        array[i][j]+=array[i-1][j];
+        array = shiftValuesDownByOneSpace(array,i-1,j);
+        addition++;
+      }
+      i--;
     }
   }
   return array;
