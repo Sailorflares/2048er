@@ -285,17 +285,15 @@ test( "Place two in random, empty spots", function() {
 });
 
 test( "Creates game tile", function() {
-	var gameTile = new GameTile(2,0,0);
+	var gameTile = new GameTile(2);
 	
-	equal(gameTile.getValue(), 2, "Value equals 2" );
-	equal(gameTile.getX(), 0, "X equals 0" );
-	equal(gameTile.getY(), 0, "Y equals 0" );
+	equal(gameTile.getValue(),2,"Value equals 2" );
 });
 
 test( "Creates game board and add tile", function() {
 	var gameBoard = new GameBoard();
-	var gameTile = new GameTile(2,0,0);
-	gameBoard.addTile(gameTile);
+	var gameTile = new GameTile(2);
+	gameBoard.addTile(gameTile,0,0);
 	
-	deepEqual(gameBoard.getTiles(),[gameTile],"Board contains appropriate tile")
+	deepEqual(gameBoard.getTile(0,0),gameTile,"Board contains appropriate tile")
 });

@@ -1,7 +1,5 @@
-function GameTile (value,x,y){
+function GameTile (value){
 	this.value = value;
-	this.x = x;
-	this.y = y;
 	this.locked = false;
 }
 
@@ -11,22 +9,6 @@ GameTile.prototype.getValue = function() {
 
 GameTile.prototype.setValue = function(value) {
 	this.value = value;
-};
-
-GameTile.prototype.setX = function(x) {
-	this.x = x;
-};
-
-GameTile.prototype.setY = function(y) {
-	this.y = y;
-};
-
-GameTile.prototype.getX = function() {
-	return this.x;
-};
-
-GameTile.prototype.getY = function() {
-	return this.y;
 };
 
 GameTile.prototype.lock = function() {
