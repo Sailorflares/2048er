@@ -283,3 +283,19 @@ test( "Place two in random, empty spots", function() {
 	
 	deepEqual ( result, [[2,2,0,0],[4,4,4,2],[2,0,0,0],[2,4,0,2]], "See test" );
 });
+
+test( "Creates game tile", function() {
+	var gameTile = new GameTile(2,0,0);
+	
+	equal(gameTile.getValue(), 2, "Value equals 2" );
+	equal(gameTile.getX(), 0, "X equals 0" );
+	equal(gameTile.getY(), 0, "Y equals 0" );
+});
+
+test( "Creates game board and add tile", function() {
+	var gameBoard = new GameBoard();
+	var gameTile = new GameTile(2,0,0);
+	gameBoard.addTile(gameTile);
+	
+	deepEqual(gameBoard.getTiles(),[gameTile],"Board contains appropriate tile")
+});
